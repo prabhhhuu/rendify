@@ -16,6 +16,16 @@ A modern, production-ready template for building full-stack React applications u
 
 ## Getting Started
 
+### Environment Setup
+
+Copy the example environment file and configure it with your Puter worker URL:
+
+```bash
+cp .env.example .env.local
+```
+
+Then edit `.env.local` and set `VITE_PUTER_WORKER_URL` to your Puter worker's URL (e.g., `https://your-subdomain.puter.work`). **Never commit `.env.local` to version control** — it contains developer-specific secrets.
+
 ### Installation
 
 Install the dependencies:
