@@ -53,7 +53,7 @@ router.get('/api/projects/list', async ({user}) => {
         if (!userId) return jsonError(401, 'Authentication failed');
 
         const projects = (await userPuter.kv.list(PROJECT_PREFIX, true))
-            .map(({value}) => ({...value, isPublic: true}))
+            .map(({value}) => ({ ...value, isPublic: value?.isPublic ?? false }))
 
         return {projects};
     } catch (e) {
