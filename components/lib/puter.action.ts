@@ -113,10 +113,15 @@ export const getProjects = async() => {
     }
 }
 
-export const getProjectById = async ({ id }: { id: string }) => {
+export type GetProjectResult =
+    | { success: true; project: DesignItem }
+    | { success: false; notFound: true }
+    | { success: false; error: true };
+
+export const getProjectById = async ({ id }: { id: string }): Promise<GetProjectResult> => {
     if (!PUTER_WORKER_URL) {
         console.warn("Missing VITE_PUTER_WORKER_URL; skipping project fetch.");
-        return null;
+        return { success: false, error: true };
     }
 
     console.log("Fetching project with ID:", id);
@@ -129,9 +134,14 @@ export const getProjectById = async ({ id }: { id: string }) => {
 
         console.log("Fetch project response:", response);
 
+        if (response.status === 404) {
+            console.log("Project not found on worker:", id);
+            return { success: false, notFound: true };
+        }
+
         if (!response.ok) {
             console.error("Failed to fetch project:", await response.text());
-            return null;
+            return { success: false, error: true };
         }
 
         const data = (await response.json()) as {
@@ -140,10 +150,14 @@ export const getProjectById = async ({ id }: { id: string }) => {
 
         console.log("Fetched project data:", data);
 
-        return data?.project ?? null;
+        if (!data?.project) {
+            return { success: false, notFound: true };
+        }
+
+        return { success: true, project: data.project };
     } catch (error) {
         console.error("Failed to fetch project:", error);
-        return null;
+        return { success: false, error: true };
     }
 };
 

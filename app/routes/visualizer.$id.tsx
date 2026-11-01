@@ -17,6 +17,7 @@ const VisualizerId = () => {
     const [isProjectLoading, setIsProjectLoading] = useState(true);
     const [isProcessing, setIsProcessing] = useState(false);
     const [currentImage, setCurrentImage] = useState<string | null>(null);
+    const [loadError, setLoadError] = useState<string | null>(null);
 
     const handleBack = () => navigate('/');
 
@@ -65,24 +66,34 @@ const VisualizerId = () => {
 
             setIsProjectLoading(true);
 
-            const fetchedProject = await getProjectById({ id });
+            const result = await getProjectById({ id });
 
             if (!isMounted) return;
 
-            // Fallback to location state only when fetch returns null and initialImage is available
-            const resolvedProject: DesignItem | null = fetchedProject
-                ? fetchedProject
-                : (location.state as any)?.initialImage
-                    ? {
-                        id,
-                        name: (location.state as any)?.name || `Residence ${id}`,
-                        sourceImage: (location.state as any)?.initialImage,
-                        renderedImage: (location.state as any)?.initialRendered || null,
-                        timestamp: Date.now(),
-                        ownerId: userId,
-                        isPublic: false,
-                      }
-                    : null;
+            if (!result.success && 'error' in result) {
+                // Request failure — show error, do not use fallback
+                setLoadError('Failed to load project. Please try again later.');
+                setIsProjectLoading(false);
+                return;
+            }
+
+            let resolvedProject: DesignItem | null = null;
+
+            if (result.success) {
+                // Project found — use it directly
+                resolvedProject = result.project;
+            } else if ('notFound' in result && (location.state as any)?.initialImage) {
+                // Confirmed missing project — use location.state fallback
+                resolvedProject = {
+                    id,
+                    name: (location.state as any)?.name || `Residence ${id}`,
+                    sourceImage: (location.state as any)?.initialImage,
+                    renderedImage: (location.state as any)?.initialRendered || null,
+                    timestamp: Date.now(),
+                    ownerId: userId ?? null,
+                    isPublic: false,
+                };
+            }
 
             setProject(resolvedProject);
             setCurrentImage(resolvedProject?.renderedImage || null);
@@ -114,6 +125,30 @@ const VisualizerId = () => {
         hasInitialGenerated.current = true;
         void runGeneration(project);
     }, [project, isProjectLoading]);
+
+    if (loadError) {
+        return (
+            <div className="visualizer">
+                <nav className={"topbar"}>
+                    <div className={"brand"}>
+                        <Box className={"logo"}/>
+                        <span className={"name"}>Roomify</span>
+                    </div>
+                    <Button variant="ghost" size={"sm"} className={"exit"} onClick={handleBack}>
+                        <X className={"icon"}/> exit Editor
+                    </Button>
+                </nav>
+                <section className={"content"}>
+                    <div className={"panel"}>
+                        <div className={"render-placeholder"} style={{textAlign: 'center', padding: '2rem'}}>
+                            <p style={{color: 'red'}}>{loadError}</p>
+                            <Button onClick={handleBack}>Go Back</Button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        );
+    }
 
     return (
             <div className="visualizer">
