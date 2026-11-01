@@ -4,6 +4,7 @@ import {generate3DView} from "../../components/lib/ai.action";
 import {Box, Download, RefreshCcw, Share2, X} from "lucide-react";
 import {Button} from "../../components/ui/button";
 import {createProject, getProjectById} from "../../components/lib/puter.action";
+import {ReactCompareSlider, ReactCompareSliderImage} from "react-compare-slider";
 
 const VisualizerId = () => {
     const { id } = useParams()
@@ -20,6 +21,25 @@ const VisualizerId = () => {
     const [loadError, setLoadError] = useState<string | null>(null);
 
     const handleBack = () => navigate('/');
+
+    const handleExport = async () => {
+        if (!currentImage) return;
+
+        try {
+            const response = await fetch(currentImage);
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${project?.name || `Residence${id}`}-render.png`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        } catch (e) {
+            console.error('Export failed:', e);
+        }
+    };
 
     const runGeneration = async (item: DesignItem) => {
         if (!id || !item.sourceImage) return;
@@ -77,14 +97,18 @@ const VisualizerId = () => {
                 return;
             }
 
-            let resolvedProject: DesignItem | null = null;
-
             if (result.success) {
                 // Project found — use it directly
-                resolvedProject = result.project;
-            } else if ('notFound' in result && (location.state as any)?.initialImage) {
-                // Confirmed missing project — use location.state fallback
-                resolvedProject = {
+                setProject(result.project);
+                setCurrentImage(result.project.renderedImage || null);
+                setIsProjectLoading(false);
+                hasInitialGenerated.current = false;
+                return;
+            }
+
+            // Confirmed missing project — use location.state fallback only when initialImage is available
+            if ('notFound' in result && (location.state as any)?.initialImage) {
+                const resolvedProject: DesignItem = {
                     id,
                     name: (location.state as any)?.name || `Residence ${id}`,
                     sourceImage: (location.state as any)?.initialImage,
@@ -93,12 +117,16 @@ const VisualizerId = () => {
                     ownerId: userId ?? null,
                     isPublic: false,
                 };
+                setProject(resolvedProject);
+                setCurrentImage(resolvedProject.renderedImage || null);
+                setIsProjectLoading(false);
+                hasInitialGenerated.current = false;
+                return;
             }
 
-            setProject(resolvedProject);
-            setCurrentImage(resolvedProject?.renderedImage || null);
+            // Project not found and no fallback available — show error
+            setLoadError('Project not found.');
             setIsProjectLoading(false);
-            hasInitialGenerated.current = false;
         };
 
         loadProject();
@@ -174,7 +202,7 @@ const VisualizerId = () => {
                             <div className={"panel-actions"}>
                                 <Button
                                     size={"sm"}
-                                    onClick = {() => {}}
+                                    onClick = {handleExport}
                                     className={"export"}
                                     disabled = {!currentImage}
                                 >
@@ -210,6 +238,38 @@ const VisualizerId = () => {
                                     </div>
                                 </div>
                             )}
+                        </div>
+                    </div>
+                    <div className={"panel compare"}>
+                        <div className={"panel-header"}>
+                            <div className={"panel-meta"}>
+                                <p>Comparison</p>
+                                <h3>Before and After</h3>
+                            </div>
+                            <div className={"hint"}>
+                                Drag to compare
+                            </div>
+                        </div>
+                        <div className={"compare-stage"}>
+                            {project?.sourceImage && currentImage ? (
+                                <ReactCompareSlider
+                                    defaultValue={50}
+                                    style={{width: "100%", height: "auto"}}
+                                    itemOne={
+                                    <ReactCompareSliderImage src={project?.sourceImage} alt="Before" className={"compare-img"} />
+                                    }
+                                    itemTwo={
+                                    <ReactCompareSliderImage src={currentImage} alt="after" className={"compare-img"} />
+                                    }
+
+                                />
+                            ) : (
+                                <div className="compare-fallback">
+                                    {project?.sourceImage && (
+                                        <img src={project?.sourceImage} alt="Before" className={"compare-img"} />
+                                    )};
+                                </div>
+                                )};
                         </div>
                     </div>
                 </section>
