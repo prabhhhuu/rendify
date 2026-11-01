@@ -69,21 +69,23 @@ const VisualizerId = () => {
 
             if (!isMounted) return;
 
-            // Fallback to location state if worker returns null
-            const project = fetchedProject || (location.state as any)?.initialImage
-                ? {
-                    id,
-                    name: (location.state as any)?.name || `Residence ${id}`,
-                    sourceImage: fetchedProject?.sourceImage || (location.state as any)?.initialImage,
-                    renderedImage: fetchedProject?.renderedImage || (location.state as any)?.initialRendered,
-                    timestamp: Date.now(),
-                    ownerId: userId,
-                    isPublic: false,
-                  }
-                : fetchedProject;
+            // Fallback to location state only when fetch returns null and initialImage is available
+            const resolvedProject: DesignItem | null = fetchedProject
+                ? fetchedProject
+                : (location.state as any)?.initialImage
+                    ? {
+                        id,
+                        name: (location.state as any)?.name || `Residence ${id}`,
+                        sourceImage: (location.state as any)?.initialImage,
+                        renderedImage: (location.state as any)?.initialRendered || null,
+                        timestamp: Date.now(),
+                        ownerId: userId,
+                        isPublic: false,
+                      }
+                    : null;
 
-            setProject(project);
-            setCurrentImage(project?.renderedImage || null);
+            setProject(resolvedProject);
+            setCurrentImage(resolvedProject?.renderedImage || null);
             setIsProjectLoading(false);
             hasInitialGenerated.current = false;
         };
