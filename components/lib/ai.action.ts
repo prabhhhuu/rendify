@@ -32,12 +32,12 @@ export const generate3DView = async ({ sourceImage }: Generate3DViewParams) => {
             model: "gemini-3.1-flash-image",
             input_image: base64Data,
             input_image_mime_type: mimeType,
-            ratio: { w: 1, h: 1},
+            ratio: { w: 1024, h: 1024},
 });
 
         const rawImageUrl = (response as HTMLImageElement).src ?? null;
 
-        if(!rawImageUrl) return { renderedImage: null, renderPath: undefined};
+        if(!rawImageUrl) return { renderedImage: null, renderedPath: undefined};
 
         const renderedImage = rawImageUrl.startsWith("data:")
         ? rawImageUrl : await fetchAsDataUrl(rawImageUrl);
