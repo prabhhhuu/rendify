@@ -5,9 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d258a7a5-7f94-4dd9-ac58-c8ff8ecdacb2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/components/lib/ai.action.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.env.local" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/lib/puter.worker.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes/home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/home.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/routes/visualizer.$id.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/visualizer.$id.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/lib/ai.action.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components/lib/ai.action.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/lib/puter.action.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components/lib/puter.action.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/lib/puter.hosting.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components/lib/puter.hosting.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,12 +20,14 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="36" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/app/routes/home.tsx" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/components/lib/puter.hosting.ts" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="McpProjectServerCommands">
@@ -29,65 +36,65 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0000998415598825" />
-      <entry key="MS500" value="1.1584413912445493" />
-      <entry key="S2" value="1.6753191558289964" />
-      <entry key="S5" value="2.296216957976751" />
-      <entry key="S10" value="3.1516650653247336" />
-      <entry key="S30" value="4.6117045081711625" />
-      <entry key="S60" value="5.225290180123268" />
-      <entry key="M2" value="5.589792088576191" />
-      <entry key="M5" value="5.932926787019371" />
-      <entry key="M10" value="8.204986598443638" />
-      <entry key="M15" value="12.686182283860786" />
-      <entry key="M30" value="26.340450069481985" />
-      <entry key="H1" value="42.651006326202264" />
-      <entry key="H2" value="61.27128115828387" />
-      <entry key="H4" value="85.42831067348035" />
-      <entry key="D1" value="381.20649567577885" />
-      <entry key="W1" value="1439.566235716645" />
+      <entry key="MS100" value="1.690298050916033" />
+      <entry key="MS500" value="2.594553236635126" />
+      <entry key="S2" value="2.888606808019297" />
+      <entry key="S5" value="2.9545704469253486" />
+      <entry key="S10" value="2.9771370740680285" />
+      <entry key="S30" value="2.9923458416204505" />
+      <entry key="S60" value="2.9961719297479634" />
+      <entry key="M2" value="3.0036164954049247" />
+      <entry key="M5" value="3.638359600851641" />
+      <entry key="M10" value="6.742482355128512" />
+      <entry key="M15" value="11.001723679452066" />
+      <entry key="M30" value="28.451942781629622" />
+      <entry key="H1" value="75.877182217026" />
+      <entry key="H2" value="178.09964672000376" />
+      <entry key="H4" value="319.0295362836237" />
+      <entry key="D1" value="797.3844151640542" />
+      <entry key="W1" value="1924.4240157470358" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
-      <entry key="S2" value="0.0" />
-      <entry key="S5" value="9.037968430906201E-153" />
-      <entry key="S10" value="9.506835511177376E-77" />
-      <entry key="S30" value="4.6622613943468717E-26" />
-      <entry key="S60" value="2.8936893957867595E-13" />
-      <entry key="M2" value="1.2626107639232885E-6" />
-      <entry key="M5" value="0.019980885421538926" />
-      <entry key="M10" value="0.5850653455787398" />
-      <entry key="M15" value="1.844399233760772" />
-      <entry key="M30" value="5.888311463793329" />
-      <entry key="H1" value="10.802924668154269" />
-      <entry key="H2" value="16.157531169132614" />
-      <entry key="H4" value="22.360476984561263" />
-      <entry key="D1" value="49.74674817533086" />
-      <entry key="W1" value="131.33908663901366" />
+      <entry key="S2" value="1.9787952112738013E-193" />
+      <entry key="S5" value="8.290110899299363E-78" />
+      <entry key="S10" value="2.8792552683602753E-39" />
+      <entry key="S30" value="1.423585559351049E-13" />
+      <entry key="S60" value="3.938051191325619E-7" />
+      <entry key="M2" value="8.572491548242959E-4" />
+      <entry key="M5" value="0.13365902269624547" />
+      <entry key="M10" value="0.9266460789967633" />
+      <entry key="M15" value="2.2333613397649317" />
+      <entry key="M30" value="7.6110134649243575" />
+      <entry key="H1" value="17.431855812372255" />
+      <entry key="H2" value="30.998018219385692" />
+      <entry key="H4" value="47.33697561369553" />
+      <entry key="D1" value="94.12699943978093" />
+      <entry key="W1" value="182.909567659465" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.5396626739458021" />
-      <entry key="MS500" value="1.0210957690600908" />
-      <entry key="S2" value="1.6197162733001031" />
-      <entry key="S5" value="2.2615484906524985" />
-      <entry key="S10" value="3.12625078121181" />
-      <entry key="S30" value="4.5989277161481885" />
-      <entry key="S60" value="5.218023068391381" />
-      <entry key="M2" value="5.585900971761642" />
-      <entry key="M5" value="5.950994552541081" />
-      <entry key="M10" value="8.785055878463043" />
-      <entry key="M15" value="14.52127269673831" />
-      <entry key="M30" value="32.21450305921005" />
-      <entry key="H1" value="53.44086620447641" />
-      <entry key="H2" value="77.41874840005698" />
-      <entry key="H4" value="107.7814979795396" />
-      <entry key="D1" value="430.94954170213003" />
-      <entry key="W1" value="1570.9035164886582" />
+      <entry key="MS100" value="1.6595289972535625" />
+      <entry key="MS500" value="2.5831538561303993" />
+      <entry key="S2" value="2.8853114796643986" />
+      <entry key="S5" value="2.9532119917397956" />
+      <entry key="S10" value="2.9764509354681365" />
+      <entry key="S30" value="2.9921155749354518" />
+      <entry key="S60" value="2.996056968924965" />
+      <entry key="M2" value="3.0043878303183" />
+      <entry key="M5" value="3.7702168819312036" />
+      <entry key="M10" value="7.663000316912137" />
+      <entry key="M15" value="13.225435031384158" />
+      <entry key="M30" value="36.04648799530994" />
+      <entry key="H1" value="93.28832106240229" />
+      <entry key="H2" value="209.0764640313448" />
+      <entry key="H4" value="366.34868006726373" />
+      <entry key="D1" value="891.5044809045163" />
+      <entry key="W1" value="2107.33123620856" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="QODANA_PROBLEMS_VIEW_TAB" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -119,9 +126,9 @@
     "node.js.selected.package.jshint": "",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.tabs",
+    "settings.editor.selected.configurable": "settings.qodana",
     "to.speed.mode.migration.done": "true",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2026.2.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external"
+    "ts.external.directory.path": "C:\\Users\\DELL\\Desktop\\roomify\\node_modules\\typescript\\lib"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -153,7 +160,10 @@
       <workItem from="1793061392034" duration="18219000" />
       <workItem from="1793313390346" duration="429000" />
       <workItem from="1793313836318" duration="7298000" />
-      <workItem from="1793410420849" duration="2108000" />
+      <workItem from="1793410420849" duration="3793000" />
+      <workItem from="1793418811916" duration="532000" />
+      <workItem from="1793482891836" duration="81000" />
+      <workItem from="1793486139777" duration="16852000" />
     </task>
     <servers />
   </component>

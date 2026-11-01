@@ -37,7 +37,7 @@ export const generate3DView = async ({ sourceImage }: Generate3DViewParams) => {
 
         const rawImageUrl = (response as HTMLImageElement).src ?? null;
 
-        if(!rawImageUrl) return { renderedImage: null, renderPath: undefined};
+        if(!rawImageUrl) return { renderedImage: null, renderedPath: undefined};
 
         const renderedImage = rawImageUrl.startsWith("data:")
         ? rawImageUrl : await fetchAsDataUrl(rawImageUrl);
